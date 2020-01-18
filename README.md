@@ -4,7 +4,6 @@ CuraProfileCompare 0.0.1 - to visualy compare two Ultimaker Cura profiles
 
 CuraProfileCompare is Qt5 python application that allow visual compararison of the two
 *.curaprofile files.
-https://github.com/aleksandarpu/CuraProfileCompare/blob/master/Images/Screenshot1.png
 
 ![Initial screenshot](Images/Screenshot1.png)
 
