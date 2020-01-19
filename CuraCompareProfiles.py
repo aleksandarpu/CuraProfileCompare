@@ -18,6 +18,8 @@ import zipfile
 
 from CuraCompareData import CuraData, CuraDataMerge, CuraDataValue
 
+version = '0.0.2'
+
 class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
@@ -60,8 +62,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     def showAbout(self):
         QMessageBox.about(self, "Simple Cure Profile compare",
-                          "Freeeware tool to compare two curaprofile files\n\n"
-                          "Autor: Aleksandar Putic (c) 2020\n\naleksandarpu@gmail.com")
+                          "Freeeware tool to compare two curaprofile files    \n"
+                          "Version " + version+ "\n\n"
+                          "Autor: Aleksandar Putic (c) 2020\n\naleksandarpu@gmail.com\n"
+                          )
 
     # handle Shap button
     # swap section names and re-populate tables
@@ -143,10 +147,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         no = curaDataMerge.getSize()
         tableWidget.setRowCount(no)
         for k, section in curaDataMerge.sections.items():
-            for k1, v1 in section.items():
+            for key in sorted(section.keys()):
+                v1 = section[key]
+            #for k1, v1 in section.items():
                 tableWidget.setItem(row, 0, QTableWidgetItem(""))
                 tableWidget.setItem(row, 1, QTableWidgetItem("[{}]".format(k)))
-                tableWidget.setItem(row, 2, QTableWidgetItem(k1))
+                tableWidget.setItem(row, 2, QTableWidgetItem(key))
                 if hasattr(v1, 'avalue'):
                     if v1.avalue is not None:
                         tableWidget.setItem(row, 3, QTableWidgetItem(v1.avalue))
