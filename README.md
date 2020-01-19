@@ -52,4 +52,5 @@ If you have idea for better way to display profiles let me know
 Version History
 ----------------
 0.0.1  - Basic functionality
+
 0.0.2  - Data in tables are sorted now. Added app version in About box
