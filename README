@@ -1,4 +1,4 @@
-CuraProfileCompare 0.0.1 - to visualy compare two Ultimaker Cura profiles 
+CuraProfileCompare 0.0.2 - to visualy compare two Ultimaker Cura profiles 
 ======================================================================================
 // code by aleksandarpu@gmail.com
 
@@ -49,8 +49,7 @@ I hope this app will help to someone dealing with Cura profiles
 Any suggestion is welcome.
 If you have idea for better way to display profiles let me know
 
-P.S. Future fix will include proper sorting of displayed rows by property name.
-
 Version History
 ----------------
-0.1  - Basic functionality
+0.0.1  - Basic functionality
+0.0.2  - Data in tables are sorted now. Added app version in About box
