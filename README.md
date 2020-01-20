@@ -1,4 +1,4 @@
-CuraProfileCompare 0.0.2 - to visualy compare two Ultimaker Cura profiles 
+CuraProfileCompare 0.1.0 - to visualy compare two Ultimaker Cura profiles 
 ======================================================================================
 // code by aleksandarpu@gmail.com
 
@@ -54,3 +54,6 @@ Version History
 0.0.1  - Basic functionality
 
 0.0.2  - Data in tables are sorted now. Added app version in About box
+
+0.1.0  -  Better layout, tooltips for labels and data
+          Reload button for B file added
