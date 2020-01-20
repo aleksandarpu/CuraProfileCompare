@@ -18,7 +18,7 @@ import zipfile
 
 from CuraCompareData import CuraData, CuraDataMerge, CuraDataValue
 
-version = '0.0.2'
+version = '0.1.0'
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
 
@@ -46,8 +46,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         tableWidget.setColumnWidth(0, 8)
         tableWidget.setColumnWidth(1, 100)
         tableWidget.setColumnWidth(2, 200)
-        tableWidget.setColumnWidth(3, 200)
-        tableWidget.setColumnWidth(3, 200)
+        tableWidget.setColumnWidth(3, 230)
+        tableWidget.setColumnWidth(4, 230)
         
         tableWidget.setHorizontalHeaderLabels(("ID", "Section", "Name", "A value", "B value"))
         # set Name column to be resized
@@ -55,9 +55,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
     # Message handling
     def setupMessages(self):
-        self.pushButtonLoadLeft.clicked.connect(self.pushButtonLoadClickedA)
-        self.pushButtonLoadRight.clicked.connect(self.pushButtonLoadClickedB)
-        self.pushButtonSwap.clicked.connect(self.pushButtonSwapClicked)
+        self.pushButtonLoadA.clicked.connect(self.pushButtonLoadAClicked)
+        self.pushButtonLoadB.clicked.connect(self.pushButtonLoadBClicked)
+        self.pushButtonReloadB.clicked.connect(self.pushButtonReloadBClicked)
+        self.pushButtonSwapSections.clicked.connect(self.pushButtonSwapClicked)
         self.actionAbout.triggered.connect(self.showAbout)
 
     def showAbout(self):
@@ -72,14 +73,16 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def pushButtonSwapClicked(self):
         if len(self.bFileSections) > 1:
             self.bFileSections = self.bFileSections[1],self.bFileSections[0]
-            self.labelLeftSub1.setText(self.bFileSections[0])
-            self.labelLeftSub2.setText(self.bFileSections[1])
+            self.labelFileBSection1.setText(self.bFileSections[0])
+            self.labelFileBSection2.setText(self.bFileSections[1])
+            self.labelFileBSection1.setToolTip(self.bFileSections[0])
+            self.labelFileBSection2.setToolTip(self.bFileSections[1])
 
         self.showData(self.dictA, self.dictB)
 
     # select A file
     # enable B file loading when done
-    def pushButtonLoadClickedA(self):
+    def pushButtonLoadAClicked(self):
         fileName = self.selectCuraProfileFile() # select file
         self.dictA = {}
         if fileName:
@@ -95,34 +98,51 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
                 self.dictA[info.filename] = CuraData(datastr) # parse into CuraData class
 
             # display curaprofile files (sections)
-            self.labelLeftSub1.setText(self.aFileSections[0])
-            self.labelLeftSub2.setText(self.aFileSections[1])
+            self.labelFileASection1.setText(self.aFileSections[0])
+            self.labelFileASection2.setText(self.aFileSections[1])
+            self.labelFileASection1.setToolTip(self.aFileSections[0])
+            self.labelFileASection2.setToolTip(self.aFileSections[1])
 
-        self.labelLeftFile.setText(fileName) # display curaprofile file name
+        self.labelFileNameA.setText(fileName) # display curaprofile file name
+        self.labelFileNameA.setToolTip(fileName) # display curaprofile file name
         self.showData(self.dictA, None)
         # enable loading for B file
-        self.pushButtonLoadRight.setEnabled(True)
+        self.pushButtonLoadB.setEnabled(True)
 
-    def pushButtonLoadClickedB(self):
+    def pushButtonReloadBClicked(self):
+        fileName = self.labelFileNameA.getText()
+        self.dictB = {}
+        self.loadBFile(fileName)
+
+    def pushButtonLoadBClicked(self):
         fileName = self.selectCuraProfileFile()
+        self.dictB = {}
         if fileName:
-            zf = zipfile.ZipFile(fileName)
-            ziplist = zf.infolist()
-            self.dictB = {}
-            self.bFileSections = set() #
-            for info in ziplist:
-                datastr = "".join( chr(x) for x in zf.read(info.filename))
+            self.loadBFile(fileName)
 
-                self.bFileSections = *self.bFileSections, info.filename
-                self.dictB[info.filename] = CuraData(datastr)
+    def loadBFile(self, fileName):
+        zf = zipfile.ZipFile(fileName)
+        ziplist = zf.infolist()
+        self.dictB = {}
+        self.bFileSections = set() #
+        for info in ziplist:
+            datastr = "".join( chr(x) for x in zf.read(info.filename))
 
-            self.labelRightSub1.setText(self.bFileSections[0])
-            self.labelRightSub2.setText(self.bFileSections[1])
+            self.bFileSections = *self.bFileSections, info.filename
+            self.dictB[info.filename] = CuraData(datastr)
 
-        self.labelRightFile.setText(fileName)
+        self.labelFileBSection1.setText(self.bFileSections[0])
+        self.labelFileBSection2.setText(self.bFileSections[1])
+        self.labelFileBSection1.setToolTip(self.bFileSections[0])
+        self.labelFileBSection2.setToolTip(self.bFileSections[1])
+
+        self.labelFileNameB.setText(fileName)
+        self.labelFileNameB.setToolTip(fileName)
         self.showData(self.dictA, self.dictB)
+
         # enable Swap button
-        self.pushButtonSwap.setEnabled(True)
+        self.pushButtonReloadB.setEnabled(True)
+        self.pushButtonSwapSections.setEnabled(True)
 
     def showData(self, adata, bdata):
         # merge data from 2 profiles into CuraDataMerge class
@@ -152,17 +172,24 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             #for k1, v1 in section.items():
                 tableWidget.setItem(row, 0, QTableWidgetItem(""))
                 tableWidget.setItem(row, 1, QTableWidgetItem("[{}]".format(k)))
-                tableWidget.setItem(row, 2, QTableWidgetItem(key))
+
+                item = QTableWidgetItem(key)
+                item.setToolTip(key)
+                tableWidget.setItem(row, 2, item)
                 if hasattr(v1, 'avalue'):
                     if v1.avalue is not None:
-                        tableWidget.setItem(row, 3, QTableWidgetItem(v1.avalue))
+                        item = QTableWidgetItem(v1.avalue)
+                        item.setToolTip(v1.avalue)
+                        tableWidget.setItem(row, 3, item)
                     else:
                         tableWidget.setItem(row, 3, QTableWidgetItem(""))
                 else:
                     tableWidget.setItem(row, 3, QTableWidgetItem(""))
                 if hasattr(v1, 'bvalue'):
                     if v1.bvalue is not None:
-                        tableWidget.setItem(row, 4, QTableWidgetItem(v1.bvalue))
+                        item = QTableWidgetItem(v1.bvalue)
+                        item.setToolTip(v1.bvalue)
+                        tableWidget.setItem(row, 4, item)
                     else:
                         tableWidget.setItem(row, 4, QTableWidgetItem(""))
                 else:
