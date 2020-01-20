@@ -12,17 +12,18 @@ CuraProfileCompare is Qt5 python application that allow visual compararison of t
 Available binaries
 -------------------
 CuraProfileCompare require python3.6+ and Qt5
+
+Link to binaries:
+https://drive.google.com/drive/folders/1dm8TKSFOK9Hd8YJmKcHlVnJIYc7gJ6-7?usp=sharing
+
 CuraProfileCompare-onefile.tgz - generated with pyinstaller but with option --onefile
-https://drive.google.com/open?id=19gNOpRlo7Pc51B0uUIe_HhN31HfnOyXF
-
 CuraProfileCompare.tar.gz contains bundle made with pyinstaller for Linux
-https://drive.google.com/open?id=18eD-v_z-06bq6H0ZI0nBjpiZ5L9pfFPa
-
 CuraProfileCompare-onefile.zip is also generated with pyinstaller but with option --onefile
-https://drive.google.com/open?id=1UZttQDb9LIuR_AUCr0KoaW4ZBfyc8FVK
-
 CuraProfileCompare.zip contains bundle made with pyinstaller for Windows
-https://drive.google.com/open?id=1LVf4kb-ob54d_olcoOzwpTIXRufqNN57
+
+Last versions:
+CuraCompareProfiles-v0.1.0.zip 
+CuraCompareProfiles-onefile-v0.1.0.zip 
 
 Dependances
 -------------------
