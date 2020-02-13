@@ -11,7 +11,7 @@ News:
 - load cura SETTINGS_3 part from gcode file
 - sort keys alfabeticaly or grouped (groups are from Cura 4.4 fdmprinter.def.json file)
 - tootlips for keys are from Cura 4.4 fdmprinter.def.json file
-- mark save values with green background
+- mark same values with green background
 - mark differences with (let's say) red background
 
 ![Initial screenshot](Images/Screenshot3.png)
