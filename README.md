@@ -14,9 +14,9 @@ News:
 - mark save values with green background
 - mark differences with (let's say) red background
 
-![Initial screenshot](Images/Screenshot1.png)
+![Initial screenshot](Images/Screenshot3.png)
 
-![Screenshot fit files loaded](Images/Screenshot2.png )
+![Screenshot fit files loaded](Images/Screenshot4.png )
 
 Available binaries
 -------------------
