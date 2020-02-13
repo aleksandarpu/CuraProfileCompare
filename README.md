@@ -67,3 +67,7 @@ Version History
 
 0.1.0  -  Better layout, tooltips for labels and data
           Reload button for B file added
+0.2.0  -  Read Cura and CuraSettingsInjecto from gcode files
+          Tooltips from Cura
+          Grouping parameters as Cura does
+          One list with all variables (general and metadata sections are ignored)
