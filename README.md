@@ -1,9 +1,18 @@
-CuraProfileCompare 0.1.0 - to visualy compare two Ultimaker Cura profiles 
+CuraProfileCompare 0.2.0 - to visualy compare two Ultimaker Cura profiles 
 ======================================================================================
 // code by aleksandarpu@gmail.com
 
 CuraProfileCompare is Qt5 python application that allow visual compararison of the two
 *.curaprofile files.
+
+News:
+- merge all curaprofile info into one list (ignore metadata and general segments)
+- load https://github.com/tjjfvi/CuraSettingsInjector from gcode file
+- load cura SETTINGS_3 part from gcode file
+- sort keys alfabeticaly or grouped (groups are from Cura 4.4 fdmprinter.def.json file)
+- tootlips for keys are from Cura 4.4 fdmprinter.def.json file
+- mark save values with green background
+- mark differences with (let's say) red background
 
 ![Initial screenshot](Images/Screenshot1.png)
 
